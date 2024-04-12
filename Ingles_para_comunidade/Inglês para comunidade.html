@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglês para Comunidade - UNIVESP</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(45deg, #f3ec78, #af4261);
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    li:hover {
+        background-color: #f9f9f9;
+    }
+
+    .favorite {
+        color: red;
+        float: right;
+    }
+
+    .logo {
+        display: block;
+        margin: 20px auto;
+        max-width: 100px;
+        transition: transform 0.3s; /* Adicionado para suavizar a transição */
+    }
+
+    .logo:hover {
+        transform: scale(2); /* Aumenta o tamanho ao passar o mouse */
+    }
+
+    .menu {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .menu a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        transition: color 0.3s;
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu a:hover {
+        color: #666;
+        background-color: #e0e0e0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            padding: 10px;
+        }
+        .logo {
+            max-width: 80px;
+        }
+        .menu a {
+            margin: 0 5px;
+            font-size: 0.9em;
+            padding: 3px 8px;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <img src="univesp_logo.png" alt="UNIVESP Logo" class="logo" id="logo">
+    <h1>Inglês para Comunidade - UNIVESP</h1>
+    <p>Universidade Virtual do Estado de São Paulo</p>
+    <p>Polo Votorantim</p>
+
+    <div class="menu">
+        <a href="#" class="basic">Básico</a>
+        <a href="#" class="intermediate">Intermediário</a>
+        <a href="#" class="advanced">Avançado</a>
+    </div>
+
+    <ul id="materials-list" class="hidden"></ul>
+</div>
+
+<script>
+const materials = {
+    basic: [
+        'Alfabeto',
+        'Números',
+        'Cores',
+        'Cumprimentos básicos'
+    ],
+    intermediate: [
+        'Verbos regulares',
+        'Verbos irregulares',
+        'Expressões idiomáticas',
+        'Vocabulário temático'
+    ],
+    advanced: [
+        'Gramática avançada',
+        'Leitura e compreensão de textos',
+        'Conversação avançada',
+        'Redação acadêmica'
+    ]
+};
+
+const menuLinks = document.querySelectorAll('.menu a');
+const materialsList = document.getElementById('materials-list');
+const logo = document.getElementById('logo');
+
+menuLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const category = link.classList[0];
+        const categoryMaterials = materials[category];
+        materialsList.innerHTML = '';
+        categoryMaterials.forEach(material => {
+            const li = document.createElement('li');
+            li.textContent = material;
+            materialsList.appendChild(li);
+        });
+        materialsList.classList.remove('hidden');
+    });
+});
+
+logo.addEventListener('click', () => {
+    logo.style.transform = 'scale(2)';
+    setTimeout(() => {
+        logo.style.transform = 'scale(1)';
+    }, 1000); // Volta ao tamanho original após 1 segundo
+});
+</script>
+</body>
+</html>
