@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Materiais de Aprendizado de Inglês</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+li:hover {
+    background-color: #f9f9f9;
+}
+
+.favorite {
+    color: red;
+    float: right;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Lista de Materiais de Aprendizado de Inglês</h1>
+    <ul id="materials-list"></ul>
+</div>
+
+<script>
+const materials = [
+    { id: 1, title: 'Livro: English Grammar in Use', favorite: false },
+    { id: 2, title: 'Vídeo Aula: Pronunciation Tips', favorite: false },
+    { id: 3, title: 'Aplicativo: Duolingo', favorite: false }
+];
+
+const materialsList = document.getElementById('materials-list');
+
+materials.forEach(material => {
+    const li = document.createElement('li');
+    li.textContent = material.title;
+    if (material.favorite) {
+        li.classList.add('favorite');
+    }
+    li.addEventListener('click', () => {
+        material.favorite = !material.favorite;
+        if (material.favorite) {
+            li.classList.add('favorite');
+        } else {
+            li.classList.remove('favorite');
+        }
+    });
+    materialsList.appendChild(li);
+});
+</script>
+</body>
+</html>
