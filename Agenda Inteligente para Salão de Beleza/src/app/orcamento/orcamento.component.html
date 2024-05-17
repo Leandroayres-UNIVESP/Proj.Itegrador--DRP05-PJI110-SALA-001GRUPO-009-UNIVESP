@@ -1,0 +1,41 @@
+<app-nav-bar ></app-nav-bar>
+<body id="body">
+<div class="row container-fluid">
+  <!--COMECO FILTRO -->
+  <body id="filtro">
+    <div >
+      <h1>Agenda</h1>
+    <!-- fim do filtro -->
+  <!-- COMECO TABELA -->
+  <div >
+    <div class="container">
+      <table class="table" >
+        <thead >
+          <tr>
+            <th scope="col">Mes</th>
+            <th scope="col">Orcamento</th>
+            <th scope="col">Valor Recebido</th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of meses">
+            <td>{{item.mes}}</td>
+            <td>{{item.orcamento}}</td>
+            <td>{{item.pagamento}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr style="background-color: var(--cor-secundaria);" >
+            <td>TOTAL</td>
+            <td>{{ OrcamentoTotal }}</td>
+            <td>{{ PagamentoTotal }}</td>
+            <td><i class="fa fa-file-excel-o" style="font-size:25px;color:green;"></i></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+</body>

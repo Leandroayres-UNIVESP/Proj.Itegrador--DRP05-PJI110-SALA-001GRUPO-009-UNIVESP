@@ -1,0 +1,532 @@
+<body id="body">
+  <app-nav-bar></app-nav-bar>
+
+  <div class="row container-fluid">
+    <!--COMECO FILTRO -->
+    <div id="filtro" class="main-container">
+      <div>
+        <h1 style="text-align: center">Lista de clientes</h1>
+        <div>
+          <form action="" class="table">
+            <ul>
+              <li>
+                <label for="nome">Nome</label>
+                <input
+                  class="form-control theme"
+                  type="text"
+                  name="nomeCliente"
+                  id="nome"
+                  placeholder="Ex: Carlos da Silva"
+                  [(ngModel)]="filterCliente.nomeCliente"
+                />
+              </li>
+              <li>
+                <label for="telefone">Telefone</label>
+                <input
+                  class="form-control theme"
+                  type="number"
+                  inputmode="numeric"
+                  pattern="[0-9]+"
+                  name="telefone"
+                  id="telefone"
+                  placeholder="(99)99123-4567"
+                  [(ngModel)]="filterCliente.telefoneCliente"
+                />
+              </li>
+              <li>
+                <label for="endereco">Endereço</label>
+                <input
+                  class="form-control theme"
+                  type="text"
+                  name="endereco"
+                  id="endereco"
+                  placeholder="Avenida Brasil"
+                  [(ngModel)]="filterCliente.clienteEndereco"
+                />
+              </li>
+              <li>
+                <label for="bairro">Bairro</label>
+                <input
+                  class="form-control theme"
+                  type="text"
+                  name="bairro"
+                  id=""
+                  placeholder="Ex: Carlos da Silva"
+                  [(ngModel)]="filterCliente.clienteBairro"
+                />
+              </li>
+              <li>
+                <label for="data-servico">Data do Serviço</label>
+                <input
+                  class="form-control theme"
+                  type="date"
+                  name="data-servico"
+                  id="dataServico"
+                  [ngModel]="
+                    filterCliente.dataDoAtendimento | date : 'yyyy-MM-dd'
+                  "
+                  (change)="updateFilterDate($event)"
+                />
+              </li>
+              <li>
+                <label for="floatingSelect">Tipo do Serviço</label>
+                <select
+                  class="form-select theme"
+                  id="floatingSelect"
+                  (change)="onServiceFilterChange($event)"
+                >
+                  <option value="Todos" selected>Todos</option>
+                  <option value="Instalacao">Instalação</option>
+                  <option value="Higienizacao">Higienização</option>
+                  <option value="Remocao">Remoção</option>
+                  <option value="Revisao">Revisão</option>
+                </select>
+              </li>
+            </ul>
+            <button
+              type="button"
+              (click)="Search()"
+              class="btn corBotao"
+              tooltip="Search"
+            >
+              <p>Enviar</p>
+              <span
+                class="fa fa-search"
+                aria-hidden="true"
+                style="font-size: 18px"
+              ></span>
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- fim do filtro -->
+      <!-- COMECO TABELA -->
+      <div>
+        <div class="container" >
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">Numero</th>
+                <th scope="col">Complemento</th>
+                <th scope="col">Bairro</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">Data do serviço</th>
+                <th scope="col">Tipo de Serviço</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Confirmar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listCliente">
+                <td>{{ item.nomeCliente }}</td>
+                <td>{{ item.telefoneCliente }}</td>
+                <td>{{ item.clienteEndereco }}</td>
+                <td>{{ item.numero }}</td>
+                <td>{{ item.complemento }}</td>
+                <td>{{ item.clienteBairro }}</td>
+                <td>{{ item.cidade }}</td>
+                <td>{{ item.dataDoAtendimento | date : "dd/MM/yyyy" }}</td>
+                <td>{{ item.tipoDeServico }}</td>
+                <td style="text-align: center">
+                  <div>
+                    <button
+                      class="btn"
+                      type="button"
+                      style="
+                        background-color: var(--cor-primaria);
+                        color: white;
+                      "
+                      data-bs-toggle="modal"
+                      data-bs-target="#updateModal"
+                      title="Update"
+                      (click)="FindClienteList(item.clienteId)"
+                    >
+                      <span
+                        class="fa fa-pencil"
+                        aria-hidden="true"
+                        style="cursor: pointer"
+                      ></span>
+                    </button>
+                  </div>
+                </td>
+                <td style="text-align: center">
+                  <div>
+                    <button
+                    [disabled]="item.pagamentoConfirmado == true"
+                      class="btn"
+                      type="button"
+                      style="background-color: rgb(2, 126, 29); color: white"
+                      title="Update"
+                      (click)="ConfirmPayment(item.clienteId)"
+                    >
+                      <span
+                        class="fa fa-money"
+                        aria-hidden="true"
+                        style="cursor: pointer"
+                      ></span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <section
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    style="text-align: left !important"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <header
+          class="modal-header"
+          style="background-color: var(--cor-primaria); color: #fff"
+        >
+          <h5 class="modal-title" id="exampleModalLabel">
+            Adicionar novo cliente
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            style="background-color: #fff"
+          ></button>
+        </header>
+        <main class="modal-body row">
+          <div class="mb-3">
+            <label for="nome" class="form-label" style="text-align: left"
+              >Nome</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="nomeCliente"
+              id="nome"
+              placeholder="Nome"
+              [(ngModel)]="addCliente.nomeCliente"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label for="telefone" class="form-label">Telefone</label>
+            <input
+              type="number"
+              class="form-control"
+              maxlength="11"
+              id="telefone"
+              [(ngModel)]="addCliente.telefoneCliente"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label class="form-label">Data de Atendimento</label>
+            <input
+              type="datetime-local"
+              [ngModel]="
+                addCliente.dataDoAtendimento | date : 'yyyy-MM-dd h:mm:ss'
+              "
+              (change)="updateInsertDate($event)"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label for="inputCEP">CEP</label>
+            <input
+              type="number"
+              class="form-control"
+              id="inputCEP"
+              placeholder="11001001"
+              [(ngModel)]="addCliente.cep"
+              (focusout)="onFocusOutEvent($event)"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label for="inputBairro">Bairro</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputBairro"
+              placeholder="Pompeia"
+              [(ngModel)]="addCliente.clienteBairro"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputAddress">Endereço</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="Rua 9 de Julho"
+              [(ngModel)]="addCliente.clienteEndereco"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label for="inputNumero">Número</label>
+            <input
+              type="number"
+              class="form-control"
+              id="inputNumero"
+              placeholder="106"
+              [(ngModel)]="addCliente.numero"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label for="inputComplemento">Complemento</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputComplemento"
+              placeholder="bloco B apto71"
+              [(ngModel)]="addCliente.complemento"
+            />
+          </div>
+          <div class="mb-3 col-4">
+            <label for="inputComplemento">Cidade</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputComplemento"
+              placeholder="Santos"
+              [(ngModel)]="addCliente.cidade"
+            />
+          </div>
+
+          <div class="mb-3 col-4">
+            <label for="exampleFormControlSelect1">Tipo de Serviço</label>
+            <select
+              [(ngModel)]="addCliente.tipoDeServico"
+              class="form-select"
+              id="floatingSelect"
+              (change)="onServiceChange($event)"
+            >
+              <option value="Instalacao" selected>Instalação</option>
+              <option value="Higienizacao">Higienização</option>
+              <option value="Remocao">Remoção</option>
+              <option value="Revisao">Revisão</option>
+            </select>
+          </div>
+
+          <div class="mb-3 col-4">
+            <label for="inputValor">Valor</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputValor"
+              placeholder="R$600.00"
+              [(ngModel)]="addCliente.orcamento"
+            />
+          </div>
+        </main>
+        <footer class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            style="background-color: var(--cor-secundaria)"
+            data-bs-dismiss="modal"
+          >
+            Fechar
+          </button>
+          <button
+            type="button"
+            class="btn"
+            style="background: var(--cor-primaria); color: #fff"
+            (click)="Adcionar()"
+          >
+            Adicionar
+          </button>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <app-modal *ngIf="updateModal" [Cliente]="updateCliente"></app-modal>
+
+  <!-- <app-modal *ngIf="updateModal" [Cliente]="updateCliente" ></app-modal> -->
+
+  <!-- Update modal -->
+  <section
+    class="modal fade"
+    id="updateModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    style="text-align: left !important"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <header
+          class="modal-header"
+          style="background-color: var(--cor-primaria); color: #fff"
+        >
+          <h5 class="modal-title" id="exampleModalLabel">Atualizar cliente</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            style="background-color: #fff"
+          ></button>
+        </header>
+        <main class="modal-body row">
+          <div class="mb-3">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label"
+              style="text-align: left"
+              >Nome</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="nomeCliente"
+              id="Nome"
+              placeholder="Nome"
+              [(ngModel)]="updCliente.nomeCliente"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label for="exampleFormControlInput2" class="form-label"
+              >Telefone</label
+            >
+            <input
+              type="tel"
+              maxlength="11"
+              class="form-control"
+              id="exampleFormControlInput1"
+              [(ngModel)]="updCliente.telefoneCliente"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label class="form-label">Data de Atendimento</label>
+            <input
+              type="datetime-local"
+              [ngModel]="
+                updCliente.dataDoAtendimento | date : 'yyyy-MM-dd h:mm'
+              "
+              (change)="updateInsertDate($event)"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputAddress">Endereço</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="Rua 9 de Julho, 23, apto71"
+              [(ngModel)]="updCliente.clienteEndereco"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label for="inputCEP">CEP</label>
+            <input
+              type="number"
+              class="form-control"
+              id="inputCEP"
+              maxlength="8"
+              placeholder="11001001"
+              [(ngModel)]="updCliente.cep"
+              (focusout)="onFocusOutEvent($event)"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label for="inputAddress">Bairro</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="Pompeia"
+              [(ngModel)]="updCliente.clienteBairro"
+            />
+          </div>
+
+          <div class="mb-3 col-6">
+            <label for="inputNumero">Número</label>
+            <input
+              type="number"
+              class="form-control"
+              id="inputNumero"
+              placeholder="106"
+              [(ngModel)]="updCliente.numero"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <label for="inputComplemento">Complemento</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputComplemento"
+              placeholder="bloco B apto71"
+              [(ngModel)]="updCliente.complemento"
+            />
+          </div>
+          <div class="mb-3 col-4">
+            <label for="inputComplemento">Cidade</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputComplemento"
+              placeholder="Santos"
+              [(ngModel)]="updCliente.cidade"
+            />
+          </div>
+
+          <div class="mb-3 col-4">
+            <label for="exampleFormControlSelect1">Tipo de Serviço</label>
+            <select
+              [(ngModel)]="updCliente.tipoDeServico"
+              class="form-select"
+              id="floatingSelect"
+              (change)="onServiceChange($event)"
+            >
+              <option value="Instalacao" selected>Instalação</option>
+              <option value="Higienizacao">Higienização</option>
+              <option value="Remocao">Remoção</option>
+              <option value="Revisao">Revisão</option>
+            </select>
+          </div>
+
+          <div class="mb-3 col-4">
+            <label for="inputValor">Valor</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputValor"
+              placeholder="R$600.00"
+              [(ngModel)]="updCliente.orcamento"
+
+            />
+          </div>
+        </main>
+        <footer class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            style="background-color: var(--cor-secundaria)"
+            data-bs-dismiss="modal"
+          >
+            Fechar
+          </button>
+          <button
+            type="button"
+            class="btn"
+            style="background: var(--cor-primaria); color: #fff"
+            (click)="Update(updateCliente)"
+          >
+            Atualizar
+          </button>
+        </footer>
+      </div>
+    </div>
+  </section>
+</body>

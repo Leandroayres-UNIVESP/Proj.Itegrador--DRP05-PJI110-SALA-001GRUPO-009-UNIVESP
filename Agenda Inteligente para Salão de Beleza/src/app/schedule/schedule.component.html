@@ -1,0 +1,135 @@
+<body id="body" >
+  <app-nav-bar></app-nav-bar>
+  <div class="calendar-container">
+    <div class="calendar">
+      <full-calendar class="full-calendar" [options]="calendarOptions" ></full-calendar>
+    </div>
+</div>
+<!-- Modal -->
+<section
+  class="modal fade "
+  id="Modal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  style="text-align: left !important"
+>
+  <div class="modal-dialog">
+    <div class="modal-content  dark-mode" id="modal-content">
+      <header class="modal-header" >
+        <h5 class="modal-title" id="exampleModalLabel">Adicionar novo cliente</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          style="background-color: #fff;"
+        ></button>
+      </header>
+      <main class="modal-body row">
+        <div class="mb-3">
+          <label for="nome" class="form-label" style="text-align: left;">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nomeCliente"
+            id="nome"
+            placeholder="Nome"
+            [(ngModel)]="addCliente.nomeCliente"
+          />
+        </div>
+        <div class="mb-3 col-6">
+          <label for="telefone" class="form-label"
+            >Telefone</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="telefone"
+            [(ngModel)]="addCliente.telefoneCliente"
+          />
+        </div>
+        <div class="mb-3 col-6">
+          <label class="form-label">Data de Atendimento</label>
+          <input type="date"  [ngModel]="addCliente.dataDoAtendimento | date: 'yyyy-MM-dd'" (change)="updateInsertDate($event)" class="form-control" />
+        </div>
+        <div class="mb-3 col-6">
+          <label for="inputCEP">CEP</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputCEP"
+            placeholder="11001001"
+            [(ngModel)]="addCliente.cep"
+
+            (focusout)="onFocusOutEvent($event)"
+          />
+        </div>
+        <div class="mb-3 col-6">
+          <label for="inputBairro">Bairro</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputBairro"
+            placeholder="Pompeia"
+            [(ngModel)]="addCliente.clienteBairro"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="inputAddress">Endereço</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="Rua 9 de Julho, 23, apto71"
+            [(ngModel)]="addCliente.clienteEndereco"
+          />
+        </div>
+        <div class="mb-3 col-6">
+          <label for="inputNumero">Número</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputNumero"
+            placeholder="106"
+            [(ngModel)]="addCliente.numero"
+
+
+          />
+        </div>
+        <div class="mb-3 col-6">
+          <label for="inputComplemento">Complemento</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputComplemento"
+            placeholder="bloco B apto71"
+            [(ngModel)]="addCliente.complemento"
+
+
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlSelect1">Tipo de Serviço</label>
+          <select [(ngModel)]="addCliente.tipoDeServico" class="form-select" id="floatingSelect" (change)="onServiceChange($event)" >
+            <option value="Instalacao" selected>Instalação</option>
+            <option value="Higienizacao">Higienização</option>
+            <option value="Remocao">Remoção</option>
+            <option value="Revisao">Revisão</option>
+          </select>
+        </div>
+      </main>
+      <footer class="modal-footer">
+      <button type="button" class="btn btn-secondary" style="background: var(--cor-secundaria)" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn" style="background: var(--cor-primaria); color:#fff" (click)="Adcionar()">Adicionar</button>
+
+      </footer>
+    </div>
+  </div>
+</section>
+
+
+</body>
+<!-- end schedule -->
+
+

@@ -1,0 +1,69 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('app/schedule/schedule.component.css');
+@import url('app/login/login.component.css');
+@import url('app/orcamento/orcamento.component.css');
+@import url('app/search-customers/search-customers.component.css');
+
+:root{
+  --cor-fundo: #ededed;
+  --cor-texto:  #1d1d1d;
+  --cor-primaria: #283b86;
+  --cor-calendario: #ebebeb;
+  --cor-titulo: #3b3b3b;
+  --tema: #f0f0f0;
+  /* ou esse 27C28C */
+
+  --cor-secundaria: #2f46a5;
+  --label-icon: url("https://caelum-online-public.s3.amazonaws.com/1369-alura-mais-dark-mode/lua.png");
+}
+
+.dark-mode {
+  --cor-fundo: #151b3a;
+  --cor-texto: #d8d8d8;
+  --cor-titulo: #f0f0f0;
+  --cor-calendario: rgba(68, 68, 68, 0.259);
+  --tema: transparent;
+  --label-icon: url("https://caelum-online-public.s3.amazonaws.com/1369-alura-mais-dark-mode/sol.png");
+}
+
+*{
+  font-family: Calibri, Nunito, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+ html, body {
+  height: 100%;
+  max-height: 100%;
+  background-color: var(--cor-fundo);
+  transition: 1s;
+}
+
+.root-container {
+  height: 100%;
+  display: block;
+}
+
+thead, header
+{
+  background-color: var(--cor-primaria); color: white;
+
+}
+
+@keyframes fadeIn{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut{
+  100% {
+    opacity: 1;
+    transition: .5s;
+  }
+  0% {
+    opacity: 0;
+  }
+}

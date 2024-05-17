@@ -1,0 +1,30 @@
+<body id="conteudo">
+  <div class="main-content">
+    <div class="inner-wrapper">
+      <h4>Bem-vindo!</h4>
+      <form class="login-form">
+          <input
+            class="form-control"
+            placeholder="Nome de usuario"
+            [(ngModel)]="login.email"
+            name="usuario"
+            >
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Senha"
+            [(ngModel)]="login.senha"
+            name="senha"
+            >
+          <button class="button" role="button" (click)="Logar()">Login</button>
+      </form>
+    </div>
+    <div class="logo">
+      <!-- <h2>Agenda Inteligente para Salão de Beleza</h2>
+      <p>Organize o seu dia!</p> -->
+      <!-- <h1 style="color: white;">Escaneie aqui!</h1> -->
+      <!-- <img id="QRCodeImage" src="{{ teste }}"> -->
+      <img src="../../assets/img/logotipo.png" alt="Logotipo da aplicacao" >
+    </div>
+  </div>
+</body>
