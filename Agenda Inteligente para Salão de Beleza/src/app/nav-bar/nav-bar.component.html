@@ -1,0 +1,24 @@
+<header class="navbar navbar-expand-lg" style="background: var(--cor-primaria)">
+  <nav class="container-fluid">
+
+    <a class="navbar-brand" routerLink="/schedule" style=" font-weight: bold;">Agenda Inteligente para Salão de Beleza</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <ul class="navbar-nav">
+        <li><a class="nav-link"   type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Novo cliente</a></li>
+        <li><a class="nav-link" aria-current="page"  routerLink="/schedule">Agenda</a></li>
+        <li><a class="nav-link" routerLink="/search">Lista de clientes</a></li>
+        <li><a class="nav-link" routerLink="/orcamento">Orçamentos</a></li>
+        <li><a class="nav-link" routerLink="">Sair</a></li>
+        <li>
+          <div class="toggle-switch" >
+            <label class="switch-label">
+              <input type="checkbox" class="checkbox" (click)="alterarModoEscuro()">
+              <span class="slider"></span>
+            </label>
+          </div>  <!-- <img (click)="alterarModoEscuro()" src="https://caelum-online-public.s3.amazonaws.com/1369-alura-mais-dark-mode/{{ icone }}.png" width="100px" height="100px"/> -->
+        </li>
+      </ul>
+  </nav>
+</header>

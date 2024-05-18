@@ -1,0 +1,85 @@
+#conteudo {
+  display: grid;
+  place-items: center center;
+  padding: 1rem;
+  animation-name: fadeIn;
+  animation-duration: 1.5s;
+}
+.main-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  width: 100%;
+  max-width: 500px;
+  border-radius: 1rem;
+}
+.inner-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: .5rem;
+  padding: 1rem;
+  gap: 1rem;
+  text-align: center;
+  width: 100%;
+  background-color: #e4e4e4;
+  box-shadow: 2px 2px 20px 3px #14141424;
+}
+.inner-wrapper h4 {
+  font-weight: 600;
+  color: #0e152f;
+}
+.logo{
+  display: none;
+  place-content: center center;
+  background-color: var(--cor-primaria);
+  border-radius: 0 1rem 1rem 0;
+}
+.login-form{
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+  gap: 1rem;
+}
+.button {
+  border-radius: 6px;
+  border: none;
+  background-color: var(--cor-primaria);
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  padding: .5rem 0;
+  touch-action: manipulation;
+  display: grid;
+  transition: .3s ease-in-out;
+}
+.button:hover {
+  background-color: #364fb3;
+  box-shadow: 0 0 5px rgb(148, 148, 148);
+}
+
+@media (min-width: 700px) {
+  #conteudo {
+    padding: 2.5rem 3.75rem;
+  }
+  .main-content {
+    max-width: 100%;
+    height: 50%;
+  }
+  .inner-wrapper {
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem 0 0 1rem;
+    
+  }
+  .login-form{
+    max-width: 70%;
+  }
+  .logo {
+    display: grid;
+  }
+}
+@media (min-width: 1000px) {
+  .main-content {
+    height: 100%;
+  }
+}

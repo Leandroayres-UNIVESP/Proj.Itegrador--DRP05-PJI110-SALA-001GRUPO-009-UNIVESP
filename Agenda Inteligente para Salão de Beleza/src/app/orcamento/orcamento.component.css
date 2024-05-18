@@ -1,0 +1,22 @@
+.container {
+  max-width: 800px;
+  border-radius: .3rem;
+}
+#body {
+  height: 100%;
+}
+#filtro h1 {
+  color: var(--cor-titulo);
+  text-align: center;
+  padding: 1rem 0;
+}
+.table {
+  width: 100%;
+  text-align: center;
+}
+
+
+td{
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+}
